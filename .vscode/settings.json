@@ -1,0 +1,45 @@
+{
+  "sqltools.connections": [
+    {
+      "connectionTimeout": 15,
+      "mssqlOptions": {
+        "appName": "SQLTools",
+        "useUTC": true,
+        "encrypt": true,
+        "trustServerCertificate": true
+      },
+      "ssh": "Disabled",
+      "previewLimit": 50,
+      "server": "localhost",
+      "driver": "MSSQL",
+      "connectString": "Server=tcp:systementerprise.database.windows.net,1433;Initial Catalog=CompanySystem;Persist Security Info=False;User ID=Aragorn;Password=busyL!on86;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;",
+      "name": "SYSTEM ENTERPRISE PROD"
+    },
+    {
+      "connectionTimeout": 15,
+      "mssqlOptions": {
+        "appName": "SQLTools",
+        "useUTC": true,
+        "encrypt": true,
+        "trustServerCertificate": true
+      },
+      "ssh": "Disabled",
+      "previewLimit": 50,
+      "server": "localhost",
+      "driver": "MSSQL",
+      "name": "JOURNAL PRO",
+      "connectString": "Server=tcp:srvmd02.database.windows.net,1433;Initial Catalog=PreJoournalMovement;Persist Security Info=False;User ID=samsagaz;Password=b!gWar59;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+    },
+    {
+      "ssh": "Disabled",
+      "previewLimit": 50,
+      "server": "10.0.0.58",
+      "port": 5432,
+      "driver": "PostgreSQL",
+      "name": "ASTA-SERVER",
+      "database": "portalweb",
+      "username": "asta",
+      "password": "Asta1095*."
+    }
+  ]
+}

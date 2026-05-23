@@ -1,0 +1,123 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-bg-dark: #030303;
+  --color-border-subtle: rgba(39, 39, 42, 0.5); /* zinc-800/50 */
+  --font-sans: var(--font-geist-sans), sans-serif;
+  --font-mono: var(--font-geist-mono), monospace;
+}
+
+:root {
+  --background: #030303;
+  --foreground: #f4f4f5; /* zinc-100 */
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+/* Subtle background grid pattern for premium tech feel */
+.bg-grid-pattern {
+  background-image: 
+    linear-gradient(to right, rgba(63, 63, 70, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(63, 63, 70, 0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Custom premium glassmorphic border and background */
+.glass-panel {
+  background: rgba(10, 10, 10, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(63, 63, 70, 0.4);
+}
+
+.glass-panel:hover {
+  border-color: rgba(113, 113, 122, 0.5);
+  box-shadow: 0 0 25px rgba(255, 255, 255, 0.02);
+}
+
+/* Custom radial glows */
+.radial-glow {
+  background: radial-gradient(circle at center, rgba(59, 130, 246, 0.1) 0%, transparent 70%);
+}
+
+.radial-glow-purple {
+  background: radial-gradient(circle at center, rgba(147, 51, 234, 0.08) 0%, transparent 70%);
+}
+
+/* Custom form validation utilizing native :user-invalid pseudo-class */
+.form-input {
+  background: rgba(10, 10, 10, 0.6);
+  border: 1px solid rgba(63, 63, 70, 0.5);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.05);
+  background: rgba(20, 20, 20, 0.8);
+}
+
+/* Native browser validation states */
+.form-input:user-invalid {
+  border-color: rgba(239, 68, 68, 0.6); /* red-500/60 */
+  background-color: rgba(239, 68, 68, 0.03);
+  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.1);
+}
+
+/* Helper text visibility tied to input validity */
+.error-msg {
+  display: none;
+  animation: slideDown 0.2s ease-out;
+}
+
+.form-input:user-invalid ~ .error-msg {
+  display: flex;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Custom autofill styles to prevent default yellow/white backgrounds in Chrome/Safari */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus {
+  -webkit-text-fill-color: #f4f4f5 !important;
+  -webkit-box-shadow: 0 0 0px 1000px #0a0a0a inset !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+/* Custom scrollbar for premium look */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #030303;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #27272a;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #3f3f46;
+}
