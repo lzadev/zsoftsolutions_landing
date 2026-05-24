@@ -1,0 +1,59 @@
+name: Mi Servidor CI/CD
+
+on:
+  push:
+    branches: [ "master" ] # Se ejecuta automáticamente al hacer push a la rama main
+
+jobs:
+  compilar-y-desplegar:
+    runs-on: ubuntu-latest
+    
+    # Vincula el flujo con el Environment "PROD" de tu captura de pantalla
+    environment: PROD  
+
+    steps:
+    # 1. Clonar el código de tu repositorio
+    - name: Descargar codigo
+      uses: actions/checkout@v4
+
+    # 2. Configurar el motor de Docker en GitHub
+    - name: Configurar Docker
+      uses: actions/setup-docker-action@v4
+
+    # 3. Iniciar sesión en tu Docker Registry Privado usando tus secretos de PROD
+    - name: Iniciar sesion en mi Registry Privado
+      uses: docker/login-action@v3
+      with:
+        registry: registry.zsoftsolutions.com
+        username: ${{ secrets.REGISTRY_USER }}
+        password: ${{ secrets.REGISTRY_PASSWORD }}
+
+    # 4. Construir la imagen usando tu Dockerfile y subirla al Registry
+    - name: Compilar imagen y subirla al Registry
+      uses: docker/build-push-action@v5
+      with:
+        context: .
+        file: ./Dockerfile
+        push: true
+        tags: registry.zsoftsolutions.com/portalweb:latest
+
+    # 5. Conectarse a tu servidor por SSH y ordenarle actualizar la app
+    - name: Entrar al servidor por SSH y actualizar
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SERVER_HOST }}
+        username: ${{ secrets.SERVER_USER }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        port: 22
+        script: |
+          cd /home/asta/docker-compose
+          
+          # Autenticar contra tu Registry privado
+          docker login registry.zsoftsolutions.com -u ${{ secrets.REGISTRY_USER }} -p ${{ secrets.REGISTRY_PASSWORD }}
+          
+          # 🎯 LE DECIMOS QUE USE TU ARCHIVO ESPECÍFICO CON EL PARÁMETRO -f
+          docker compose -f portalweb.yml pull portalweb
+          docker compose -f portalweb.yml up -d --force-recreate portalweb
+          
+          # Limpiar imágenes viejas
+          docker image prune -f
